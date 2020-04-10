@@ -6,7 +6,7 @@ import { Controller, ValidationService, FieldErrors, ValidateError, TsoaRoute } 
 import { UserController } from './user.controller';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { AuthController } from './auth.controller';
-import { expressAuthentication } from './../authentication';
+import { expressAuthentication } from '../helpers/authentication';
 import * as express from 'express';
 
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -95,7 +95,6 @@ export function RegisterRoutes(app: express.Express) {
             const args = {
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
                 email: { "in": "body-prop", "name": "email", "required": true, "dataType": "string" },
-                password: { "in": "body-prop", "name": "password", "required": true, "dataType": "string" },
                 role: { "in": "body-prop", "name": "role", "required": true, "dataType": "string" },
                 request: { "in": "request", "name": "request", "required": true, "dataType": "object" },
             };

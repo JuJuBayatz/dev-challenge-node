@@ -157,9 +157,6 @@
 								"email": {
 									"type": "string"
 								},
-								"password": {
-									"type": "string"
-								},
 								"role": {
 									"type": "string"
 								}
@@ -168,7 +165,6 @@
 							"type": "object",
 							"required": [
 								"email",
-								"password",
 								"role"
 							]
 						}

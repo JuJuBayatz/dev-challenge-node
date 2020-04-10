@@ -1,12 +1,13 @@
 import * as express from 'express';
 import * as cors from 'cors';
 import * as bodyParser from 'body-parser';
-//import {requestLoggerMiddleware} from './request.logger.middleware';
 import * as swaggerUi from 'swagger-ui-express';
 import {RegisterRoutes} from './api/routes';
-import { requestLoggerMiddleware } from './request.logger.middleware';
-const app = express();
+import { requestLoggerMiddleware } from './helpers/request.logger.middleware';
+import * as dotenv from 'dotenv';
 
+const app = express();
+dotenv.config({ path: '.env.dev' });
 app.use(cors());
 app.use(bodyParser.json());
 app.use(requestLoggerMiddleware);

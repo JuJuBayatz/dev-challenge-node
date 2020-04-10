@@ -2,7 +2,7 @@ import {UserModel, IUser} from '../models/user';
 import {Controller, Route, Post, BodyProp, Put, Delete, Get, Security,Request} from 'tsoa';
 import * as express from 'express';
 import * as jwt from 'jsonwebtoken';
-import {parseToken} from '../token.helper'
+import {parseToken} from '../helpers/token.helper'
 
 @Route('/user')
 export class UserController extends Controller{
@@ -42,13 +42,14 @@ export class UserController extends Controller{
 
     @Security('jwt',["admin", "manager"])
     @Put('/{id}')
-    public async update(id: string, @BodyProp() email: string, @BodyProp() password: string, @BodyProp() role: string, @Request() request: express.Request): Promise<void>{
+    public async update(id: string, @BodyProp() email: string, @BodyProp() role: string, @Request() request: express.Request): Promise<void>{
 
+        console.log('Put ' + id );
         const user = parseToken(request);
         if(user.role == "admin" || (user.role == "manager" && role !== "admin")) 
         {
             await UserModel.findByIdAndUpdate(id,{
-                'password':password,
+                'password':1,
                 'email':email,
                 'role':role
             });
