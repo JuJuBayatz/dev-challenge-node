@@ -8,8 +8,7 @@ import {parseToken} from '../helpers/token.helper'
 export class UserController extends Controller{
     @Security('jwt',["admin", "manager", "user"])
     @Get()
-    public async getAll():Promise<IUser[]> {   
-        console.log('sss1');           
+    public async getAll():Promise<IUser[]> {             
         try{
             let items:any = await UserModel.find({});
             items = items.map((item: IUser)=>{
