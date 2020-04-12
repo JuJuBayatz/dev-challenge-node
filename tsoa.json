@@ -23,6 +23,6 @@
         "basePath":"/",
         "entryFile":"./src/tsoa.routes.ts",
         "routesDir":"./src/api",
-        "authenticationModule": "./src/authentication.ts"
+        "authenticationModule": "./src/helpers/authentication.ts"
     }
 }

@@ -2,6 +2,7 @@ import {app} from './app';
 import * as http from 'http';
 import * as mongoose from 'mongoose';
 import { UserModel } from './models/user';
+import { passwordHasher } from './helpers/authentication';
 
 const server = http.createServer(app);
 
@@ -24,7 +25,7 @@ server.on('listening', async ()=>{
         UserModel.countDocuments({email: email}).then((count)=>{
             if(!count){
                 console.log('Seeding initial user');
-                const password = process.env['DEFAULT_PASSWORD'];
+                const password = passwordHasher(process.env['DEFAULT_PASSWORD']);
                 const item = new UserModel({email:email, role:'admin', password:password});
                 item.save();
             }

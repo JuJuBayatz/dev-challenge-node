@@ -1,5 +1,6 @@
 import * as express from 'express';
 import * as jwt from 'jsonwebtoken';
+import * as bcrypt from 'bcrypt'
 
 export function expressAuthentication(request: express.Request, securityName: string, scopes?: string[]): Promise<any> {
 
@@ -24,3 +25,12 @@ export function expressAuthentication(request: express.Request, securityName: st
     });
   }
 };
+
+export function passwordHasher(password: string): string {
+  return bcrypt.hashSync(password, 10);
+}
+
+export function hashCompare(password: string, hash:string): boolean {
+  return bcrypt.compareSync(password,hash)
+   //return bcrypt.hashSync(password, 10);
+}

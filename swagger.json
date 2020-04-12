@@ -28,13 +28,29 @@
 			"type": "object",
 			"additionalProperties": true
 		},
-		"loginModel": {
+		"LoginModel": {
 			"properties": {
 				"token": {
 					"type": "string"
 				},
 				"user": {
-					"$ref": "#/definitions/IUser"
+					"properties": {
+						"email": {
+							"type": "string"
+						},
+						"role": {
+							"type": "string"
+						},
+						"id": {
+							"type": "string"
+						}
+					},
+					"required": [
+						"id",
+						"role",
+						"email"
+					],
+					"type": "object"
 				}
 			},
 			"required": [
@@ -208,7 +224,7 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/loginModel"
+							"$ref": "#/definitions/LoginModel"
 						}
 					}
 				},
@@ -231,6 +247,45 @@
 							"required": [
 								"email",
 								"password"
+							]
+						}
+					}
+				]
+			}
+		},
+		"/login/loginOpenId": {
+			"post": {
+				"operationId": "LoginOpenId",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/LoginModel"
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"schema": {
+							"properties": {
+								"email": {
+									"type": "string"
+								},
+								"jwtIdToken": {
+									"type": "string"
+								}
+							},
+							"title": "LoginOpenIdBody",
+							"type": "object",
+							"required": [
+								"email",
+								"jwtIdToken"
 							]
 						}
 					}
