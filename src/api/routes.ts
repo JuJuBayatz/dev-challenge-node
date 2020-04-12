@@ -6,7 +6,7 @@ import { Controller, ValidationService, FieldErrors, ValidateError, TsoaRoute } 
 import { UserController } from './user.controller';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { AuthController } from './auth.controller';
-import { expressAuthentication } from '../helpers/authentication';
+import { expressAuthentication } from './../helpers/authentication';
 import * as express from 'express';
 
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -23,11 +23,11 @@ const models: TsoaRoute.Models = {
         "additionalProperties": true,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "loginModel": {
+    "LoginModel": {
         "dataType": "refObject",
         "properties": {
             "token": { "dataType": "string", "required": true },
-            "user": { "ref": "IUser", "required": true },
+            "user": { "dataType": "nestedObjectLiteral", "nestedProperties": { "id": { "dataType": "string", "required": true }, "role": { "dataType": "string", "required": true }, "email": { "dataType": "string", "required": true } }, "required": true },
         },
         "additionalProperties": true,
     },
@@ -159,6 +159,29 @@ export function RegisterRoutes(app: express.Express) {
 
 
             const promise = controller.login.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    app.post('/login/loginOpenId',
+        function(request: any, response: any, next: any) {
+            const args = {
+                email: { "in": "body-prop", "name": "email", "required": true, "dataType": "string" },
+                jwtIdToken: { "in": "body-prop", "name": "jwtIdToken", "required": true, "dataType": "string" },
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new AuthController();
+
+
+            const promise = controller.loginOpenId.apply(controller, validatedArgs as any);
             promiseHandler(controller, promise, response, next);
         });
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa

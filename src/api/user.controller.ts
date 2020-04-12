@@ -1,7 +1,7 @@
 import {UserModel, IUser} from '../models/user';
 import {Controller, Route, Post, BodyProp, Put, Delete, Get, Security,Request} from 'tsoa';
 import * as express from 'express';
-import * as jwt from 'jsonwebtoken';
+import { passwordHasher } from '../helpers/authentication';
 import {parseToken} from '../helpers/token.helper'
 
 @Route('/user')
@@ -34,7 +34,7 @@ export class UserController extends Controller{
         const user = parseToken(request);
         if(user.role == "admin" || (user.role == "manager" && role !== "admin")) 
         {
-            const item = new UserModel({email:email, role:role,password:1});
+            const item = new UserModel({email:email, role:role, password: passwordHasher(process.env['DEFAULT_PASSWORD'])});
             item.save();
         }
     };
@@ -43,7 +43,6 @@ export class UserController extends Controller{
     @Put('/{id}')
     public async update(id: string, @BodyProp() email: string, @BodyProp() role: string, @Request() request: express.Request): Promise<void>{
 
-        console.log('Put ' + id );
         const user = parseToken(request);
         if(user.role == "admin" || (user.role == "manager" && role !== "admin")) 
         {
